@@ -5,11 +5,6 @@ TEST_SRCS(
     test_truncate_table_concurrency.py
 )
 
-SIZE(MEDIUM)
-
-DEPENDS(
-)
-
 PEERDIR(
     ydb/tests/datashard/lib
     ydb/tests/sql/lib
