@@ -1,6 +1,3 @@
-# -*- coding: utf-8 -*-
-import ydb
-import pytest
 import random
 import threading
 import time
@@ -8,7 +5,7 @@ from ydb.tests.sql.lib.test_base import TestBase
 
 
 class TestTruncateTableConcurrency(TestBase):
-    
+
     left_id_range = 0
     right_id_range = 0
 
@@ -21,7 +18,7 @@ class TestTruncateTableConcurrency(TestBase):
 
     def test_truncate_with_concurrent_rw_operations(self):
         table_name = f"{self.table_path}_truncate_concurrency"
-        
+
         self._create_test_table(table_name)
 
         rows_init_count = 40
@@ -56,7 +53,7 @@ class TestTruncateTableConcurrency(TestBase):
             )
             """
         )
-    
+
     def _upsert_data(self, table_name : str, rows_count : int = 5):
         sql_upsert = f"""
             UPSERT INTO `{table_name}` (id, numeric_value_1, numeric_value_2, vector_data, text_data)
@@ -84,7 +81,7 @@ class TestTruncateTableConcurrency(TestBase):
     def _verify_table_count(self, table_name : str, expected_count : int):
         result = self.query(f"SELECT COUNT(*) as row_count FROM `{table_name}`")
         assert len(result) > 0, "Expected count result"
-        
+
         row_count = result[0]["row_count"]
         assert row_count == expected_count, f"Expected {expected_count} rows, got {row_count}"
 
@@ -169,7 +166,7 @@ class TestTruncateTableConcurrency(TestBase):
                 ORDER BY `id`;
             """
         )
-    
+
     def _select_with_vector_index(self, table_name : str):
         self.query(
             f"""
