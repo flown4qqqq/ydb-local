@@ -1,6 +1,8 @@
+# -*- coding: utf-8 -*-
+import ydb
 import random
-import threading
 import time
+import concurrent.futures
 from ydb.tests.sql.lib.test_base import TestBase
 
 
@@ -56,8 +58,8 @@ class TestTruncateTableConcurrency(TestBase):
 
     def _upsert_data(self, table_name : str, rows_count : int = 5):
         sql_upsert = f"""
-            UPSERT INTO `{table_name}` (id, numeric_value_1, numeric_value_2, vector_data, text_data)
-            VALUES
+        UPSERT INTO `{table_name}` (id, numeric_value_1, numeric_value_2, vector_data, text_data)
+        VALUES
         """
 
         self.right_id_range += rows_count
@@ -160,10 +162,10 @@ class TestTruncateTableConcurrency(TestBase):
 
         self.query(
             f"""
-                SELECT `id`, `text_data`
-                FROM `{table_name}` VIEW `idx_text_data`
-                WHERE FulltextMatch(`text_data`, "string_{index}")
-                ORDER BY `id`;
+            SELECT `id`, `text_data`
+            FROM `{table_name}` VIEW `idx_text_data`
+            WHERE FulltextMatch(`text_data`, "string_{index}")
+            ORDER BY `id`;
             """
         )
 
@@ -180,26 +182,30 @@ class TestTruncateTableConcurrency(TestBase):
         )
 
     def execute_concurrent_operations(self, table_name: str, operations: list):
-        stop_threads = threading.Event()
+        execution_time = 300
+        deadline = time.time() + execution_time
 
         def random_operations_worker():
-            while not stop_threads.is_set():
-                operation = random.choice(operations)
-                operation(table_name)
+            while time.time() < deadline:
+                try:
+                    operation = random.choice(operations)
+                    operation(table_name)
+                except ydb.issues.Aborted:
+                    continue
 
         def truncate_worker():
-            while not stop_threads.is_set():
+            # We can’t call TRUNCATE TABLE too often for two reasons:
+            # 1. TRUNCATE calls can overwhelm the session pool.
+            # 2. DML operations may get a TLI too frequently due to an incorrect schemaVersion on the data shard.
+            while time.time() < deadline:
                 self._truncate_table(table_name)
-                time.sleep(0.25)
+                time.sleep(2)
 
-        random_thread = threading.Thread(target=random_operations_worker)
-        truncate_thread = threading.Thread(target=truncate_worker)
+        with concurrent.futures.ThreadPoolExecutor(max_workers=2) as executor:
+            random_future = executor.submit(random_operations_worker)
+            truncate_future = executor.submit(truncate_worker)
 
-        random_thread.start()
-        truncate_thread.start()
+            concurrent.futures.wait([random_future, truncate_future], timeout=execution_time+5)
 
-        time.sleep(20)
-
-        stop_threads.set()
-        random_thread.join(timeout=5)
-        truncate_thread.join(timeout=5)
+            random_future.result(timeout=1)
+            truncate_future.result(timeout=1)
