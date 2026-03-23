@@ -259,6 +259,7 @@ SRCS(
     schemeshard_bg_tasks__list.cpp
     schemeshard_billing_helpers.cpp
     schemeshard_build_index.cpp
+    schemeshard_build_index_common.cpp
     schemeshard_build_index_helpers.cpp
     schemeshard_build_index__cancel.cpp
     schemeshard_build_index__create.cpp

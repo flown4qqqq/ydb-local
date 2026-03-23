@@ -3,6 +3,7 @@
 #include "schemeshard_build_index_tx_base.h"
 #include "schemeshard_impl.h"
 #include "schemeshard_index_utils.h"
+#include "schemeshard_build_index_common.h"
 
 #include <ydb/public/api/protos/ydb_issue_message.pb.h>
 #include <ydb/public/api/protos/ydb_status_codes.pb.h>
@@ -198,25 +199,6 @@ TPath GetBuildPath(TSchemeShard* ss, const TIndexBuildInfo& buildInfo, const TSt
     return TPath::Init(buildInfo.TablePathId, ss)
         .Dive(buildInfo.IndexName)
         .Dive(tableName);
-}
-
-THolder<TEvSchemeShard::TEvModifySchemeTransaction> LockPropose(
-    TSchemeShard* ss, const TIndexBuildInfo& buildInfo, TTxId txId, const TPath& path)
-{
-    auto propose = MakeHolder<TEvSchemeShard::TEvModifySchemeTransaction>(ui64(txId), ss->TabletID());
-    propose->Record.SetFailOnExist(false);
-
-    NKikimrSchemeOp::TModifyScheme& modifyScheme = *propose->Record.AddTransaction();
-    modifyScheme.SetOperationType(NKikimrSchemeOp::ESchemeOpCreateLock);
-    modifyScheme.SetInternal(true);
-    modifyScheme.SetWorkingDir(path.Parent().PathString());
-    modifyScheme.MutableLockConfig()->SetName(path.LeafName());
-    modifyScheme.MutableLockConfig()->SetLockTxId(ui64(buildInfo.LockTxId));
-
-    LOG_NOTICE_S((TlsActivationContext->AsActorContext()), NKikimrServices::BUILD_INDEX,
-        "LockPropose " << buildInfo.Id << " " << buildInfo.State << " " << propose->Record.ShortDebugString());
-
-    return propose;
 }
 
 THolder<TEvSchemeShard::TEvModifySchemeTransaction> CreateIndexPropose(
