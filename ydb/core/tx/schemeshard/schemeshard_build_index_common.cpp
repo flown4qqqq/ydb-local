@@ -22,5 +22,26 @@ THolder<TEvSchemeShard::TEvModifySchemeTransaction> LockPropose(
     return propose;
 }
 
+THolder<TEvSchemeShard::TEvModifySchemeTransaction> UnlockPropose(
+    TSchemeShard* ss, const TIndexBuildInfo& buildInfo)
+{
+    auto propose = MakeHolder<TEvSchemeShard::TEvModifySchemeTransaction>(ui64(buildInfo.UnlockTxId), ss->TabletID());
+    propose->Record.SetFailOnExist(true);
+
+    TPath path = TPath::Init(buildInfo.TablePathId, ss);
+
+    NKikimrSchemeOp::TModifyScheme& modifyScheme = *propose->Record.AddTransaction();
+    modifyScheme.SetOperationType(NKikimrSchemeOp::ESchemeOpDropLock);
+    modifyScheme.SetInternal(true);
+    modifyScheme.MutableLockGuard()->SetOwnerTxId(ui64(buildInfo.LockTxId));
+    modifyScheme.SetWorkingDir(path.Parent().PathString());
+    modifyScheme.MutableLockConfig()->SetName(path.LeafName());
+
+    LOG_NOTICE_S((TlsActivationContext->AsActorContext()), NKikimrServices::BUILD_INDEX,
+        "UnlockPropose " << buildInfo.Id << " " << buildInfo.State << " " << propose->Record.ShortDebugString());
+
+    return propose;
+}
+
 } // namespace NSchemeShard
 } // namespace NKikimr

@@ -473,42 +473,6 @@ THolder<TEvSchemeShard::TEvModifySchemeTransaction> ApplyPropose(
     return propose;
 }
 
-THolder<TEvSchemeShard::TEvModifySchemeTransaction> UnlockPropose(
-    TSchemeShard* ss, const TIndexBuildInfo& buildInfo)
-{
-    auto propose = MakeHolder<TEvSchemeShard::TEvModifySchemeTransaction>(ui64(buildInfo.UnlockTxId), ss->TabletID());
-    propose->Record.SetFailOnExist(true);
-
-    auto addUnlock = [&](TPath path) {
-        NKikimrSchemeOp::TModifyScheme& modifyScheme = *propose->Record.AddTransaction();
-        modifyScheme.SetOperationType(NKikimrSchemeOp::ESchemeOpDropLock);
-        modifyScheme.SetInternal(true);
-        modifyScheme.MutableLockGuard()->SetOwnerTxId(ui64(buildInfo.LockTxId));
-
-        modifyScheme.SetWorkingDir(path.Parent().PathString());
-
-        auto& lockConfig = *modifyScheme.MutableLockConfig();
-        lockConfig.SetName(path.LeafName());
-    };
-
-    addUnlock(TPath::Init(buildInfo.TablePathId, ss));
-
-    if (buildInfo.IsValidatingUniqueIndex()
-        || buildInfo.IsFlatRelevanceFulltext())
-    {
-        // Unlock also indexImplTable
-        TPath indexImplTablePath = GetBuildPath(ss, buildInfo, NTableIndex::ImplTable);
-        if (indexImplTablePath.IsResolved() && indexImplTablePath.IsLocked()) {
-            addUnlock(std::move(indexImplTablePath));
-        }
-    }
-
-    LOG_NOTICE_S((TlsActivationContext->AsActorContext()), NKikimrServices::BUILD_INDEX,
-        "UnlockPropose " << buildInfo.Id << " " << buildInfo.State << " " << propose->Record.ShortDebugString());
-
-    return propose;
-}
-
 THolder<TEvSchemeShard::TEvModifySchemeTransaction> CancelPropose(
     TSchemeShard* ss, const TIndexBuildInfo& buildInfo)
 {
