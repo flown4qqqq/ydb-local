@@ -2358,13 +2358,6 @@ struct Schema : NIceDb::Schema {
         using TColumns = TableColumns<ShardIdx, OwnerPathId, LocalPathId>;
     };
 
-    struct SetColumnConstraintOperation : Table<133> {
-        struct Id : Column<1, NScheme::NTypeIds::Uint64> { using Type = TIndexBuildId; };
-
-        using TKey = TableKey<Id>;
-        using TColumns = TableColumns<Id>;
-    };
-
     using TTables = SchemaTables<
         Paths,
         TxInFlight,
@@ -2495,8 +2488,7 @@ struct Schema : NIceDb::Schema {
         StreamingQueryState,
         ForcedCompactions,
         WaitingForcedCompactionShards,
-        SharedShards,
-        SetColumnConstraintOperation
+        SharedShards
     >;
 
     static constexpr ui64 SysParam_NextPathId = 1;
