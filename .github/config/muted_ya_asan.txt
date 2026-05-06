@@ -280,6 +280,7 @@ ydb/core/transfer/ut/large TransferLarge.Transfer1KM_1KP_RowTable
 ydb/core/tx/columnshard/ut_schema unittest.[*/*] chunk
 ydb/core/tx/datashard/build_index/ut TTxDataShardReshuffleKMeansScan.BuildToBuildWithOverlap
 ydb/core/tx/datashard/build_index/ut TTxDataShardReshuffleKMeansScan.BuildToPosting
+ydb/core/tx/datashard/build_index/ut TTxDataShardReshuffleKMeansScan.DimensionMismatchError
 ydb/core/tx/datashard/build_index/ut TTxDataShardReshuffleKMeansScan.MainToBuild
 ydb/core/tx/datashard/build_index/ut TTxDataShardReshuffleKMeansScan.MainToPostingResumeFromLastKeyAck
 ydb/core/tx/datashard/build_index/ut TTxDataShardReshuffleKMeansScan.MainToPostingWithKeyRange
