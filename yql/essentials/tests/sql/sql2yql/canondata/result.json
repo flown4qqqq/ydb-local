@@ -587,6 +587,13 @@
             "uri": "https://{canondata_backend}/1809005/a91bd43ede1e3194ebdd265654e7e41d80753937/resource.tar.gz#test_sql2yql.test_agg_phases-avg_if_/sql.yql"
         }
     ],
+    "test_sql2yql.test[agg_phases-avg_if_interval64]": [
+        {
+            "checksum": "f84a00befba888e01ff619edaac541be",
+            "size": 13437,
+            "uri": "https://{canondata_backend}/1881367/421aea22f11b3d8c6d4278005da42c43d9c51b55/resource.tar.gz#test_sql2yql.test_agg_phases-avg_if_interval64_/sql.yql"
+        }
+    ],
     "test_sql2yql.test[agg_phases-avg_if_opt]": [
         {
             "checksum": "8e9c56466d21371e037916827326adfd",
@@ -1432,6 +1439,13 @@
             "checksum": "512a438d4e29e7caf0e73e50f2cbabd8",
             "size": 8177,
             "uri": "https://{canondata_backend}/1809005/a91bd43ede1e3194ebdd265654e7e41d80753937/resource.tar.gz#test_sql2yql.test_aggregate-aggregate_inmem_list_in_key_/sql.yql"
+        }
+    ],
+    "test_sql2yql.test[aggregate-avg_interval64]": [
+        {
+            "checksum": "53d4662c7b64fd85989df04375e53b3b",
+            "size": 3350,
+            "uri": "https://{canondata_backend}/1809005/235f81e60c25f186bee3e757778ca74257b7ef13/resource.tar.gz#test_sql2yql.test_aggregate-avg_interval64_/sql.yql"
         }
     ],
     "test_sql2yql.test[aggregate-distinct_over_keys]": [
@@ -12270,6 +12284,11 @@
             "uri": "file://test_sql_format.test_agg_phases-avg_if_/formatted.sql"
         }
     ],
+    "test_sql_format.test[agg_phases-avg_if_interval64]": [
+        {
+            "uri": "file://test_sql_format.test_agg_phases-avg_if_interval64_/formatted.sql"
+        }
+    ],
     "test_sql_format.test[agg_phases-avg_if_opt]": [
         {
             "uri": "file://test_sql_format.test_agg_phases-avg_if_opt_/formatted.sql"
@@ -12873,6 +12892,11 @@
     "test_sql_format.test[aggregate-aggregate_inmem_list_in_key]": [
         {
             "uri": "file://test_sql_format.test_aggregate-aggregate_inmem_list_in_key_/formatted.sql"
+        }
+    ],
+    "test_sql_format.test[aggregate-avg_interval64]": [
+        {
+            "uri": "file://test_sql_format.test_aggregate-avg_interval64_/formatted.sql"
         }
     ],
     "test_sql_format.test[aggregate-distinct_over_keys]": [
