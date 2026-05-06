@@ -398,7 +398,7 @@ Checks: >
   -readability-redundant-access-specifiers,
   -readability-redundant-control-flow,
   -readability-redundant-declaration,
-  -readability-redundant-function-ptr-dereference,
+  readability-redundant-function-ptr-dereference,
   -readability-redundant-member-init,
   -readability-redundant-preprocessor,
   -readability-redundant-smartptr-get,
