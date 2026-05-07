@@ -404,7 +404,7 @@ Checks: >
   -readability-redundant-smartptr-get,
   -readability-redundant-string-cstr,
   -readability-redundant-string-init,
-  -readability-simplify-boolean-expr,
+  readability-simplify-boolean-expr,
   -readability-simplify-subscript-expr,
   -readability-static-accessed-through-instance,
   -readability-static-definition-in-anonymous-namespace,
@@ -426,3 +426,7 @@ CheckOptions:
     value: N
   - key: readability-identifier-naming.StaticVariableCase
     value: CamelCase
+  - key: readability-simplify-boolean-expr.IgnoreMacros
+    value: true
+  - key: readability-simplify-boolean-expr.SimplifyDeMorgan
+    value: false
