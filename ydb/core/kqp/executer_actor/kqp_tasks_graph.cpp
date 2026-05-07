@@ -803,7 +803,15 @@ void TKqpTasksGraph::BuildStreamLookupChannels(const TStageInfo& stageInfo, ui32
     for (const auto& keyColumn : streamLookup.GetKeyColumns()) {
         auto columnIt = tableInfo->Columns.find(keyColumn);
         YQL_ENSURE(columnIt != tableInfo->Columns.end(), "Unknown column: " << keyColumn);
+        // For compatibility with old versions
         settings->AddLookupKeyColumns(keyColumn);
+    }
+
+    for (const auto& inputColumn : streamLookup.GetInputColumns()) {
+        auto columnIt = tableInfo->Columns.find(inputColumn);
+        YQL_ENSURE(columnIt != tableInfo->Columns.end(), "Unknown column: " << inputColumn);
+        auto* columnProto = settings->AddInputColumns();
+        ParseColumnToProto(inputColumn, columnIt, columnProto);
     }
 
     for (const auto& column : streamLookup.GetColumns()) {
@@ -1424,6 +1432,9 @@ void TKqpTasksGraph::FillInputDesc(NYql::NDqProto::TTaskInput& inputDesc, const 
             if (snapshot.IsValid() && !isTableImmutable) {
                 input.Meta.StreamLookupSettings->MutableSnapshot()->SetStep(snapshot.Step);
                 input.Meta.StreamLookupSettings->MutableSnapshot()->SetTxId(snapshot.TxId);
+                if (input.Meta.StreamLookupSettings->GetLookupStrategy() == NKqpProto::EStreamLookupStrategy::LOCK_AND_LOOKUP) {
+                    input.Meta.StreamLookupSettings->SetAllowInconsistentReads(true);    
+                }
             } else {
                 YQL_ENSURE(GetMeta().AllowInconsistentReads || isTableImmutable, "Expected valid snapshot or enabled inconsistent read mode");
                 input.Meta.StreamLookupSettings->SetAllowInconsistentReads(true);
@@ -1435,6 +1446,8 @@ void TKqpTasksGraph::FillInputDesc(NYql::NDqProto::TTaskInput& inputDesc, const 
             }
 
             if (lockTxId && GetMeta().LockMode && !isTableImmutable) {
+                AFL_ENSURE(input.Meta.StreamLookupSettings->GetLookupStrategy() != NKqpProto::EStreamLookupStrategy::UNIQUE
+                    || GetMeta().LockMode != NKikimrDataEvents::PESSIMISTIC_NONE);
                 if (input.Meta.StreamLookupSettings->GetLookupStrategy() == NKqpProto::EStreamLookupStrategy::UNIQUE
                         && GetMeta().RequestIsolationLevel == NKqpProto::EIsolationLevel::ISOLATION_LEVEL_SNAPSHOT_RW) {
                     // Unique Index needs read lock even in snapshot isolation mode.
@@ -2756,7 +2769,7 @@ TMaybe<size_t> TKqpTasksGraph::BuildScanTasksFromSource(TStageInfo& stageInfo, b
             settings->MutableSnapshot()->SetTxId(snapshot.TxId);
         }
 
-        if (GetMeta().RequestIsolationLevel == NKqpProto::ISOLATION_LEVEL_READ_UNCOMMITTED) {
+        if (GetMeta().RequestIsolationLevel == NKqpProto::ISOLATION_LEVEL_INCONSISTENT_ONLINE_RO) {
             settings->SetAllowInconsistentReads(true);
         }
 
