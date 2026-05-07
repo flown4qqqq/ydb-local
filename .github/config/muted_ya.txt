@@ -38,6 +38,7 @@ ydb/core/transfer/ut/column_table unittest.sole chunk
 ydb/core/transfer/ut/functional unittest.sole chunk
 ydb/core/transfer/ut/row_table unittest.sole chunk
 ydb/core/tx/columnshard/ut_schema unittest.[*/*] chunk
+ydb/core/tx/datashard/ut_read_iterator DataShardReadIteratorConsistency.WriteLockThenUncommittedReadUpgradeRetryAndRestart
 ydb/core/tx/schemeshard/ut_index_build_reboots unittest.[*/*] chunk
 ydb/core/tx/schemeshard/ut_restore unittest.[*/*] chunk
 ydb/core/tx/schemeshard/ut_sequence_reboots unittest.[*/*] chunk
