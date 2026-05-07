@@ -8744,9 +8744,9 @@
     ],
     "test_sql2yql.test[runtime_features-runtime_feature_basic]": [
         {
-            "checksum": "d32f51ee72a9196fcef4524c74bf7776",
-            "size": 1244,
-            "uri": "https://{canondata_backend}/1784117/e7bcd74e97ae81a1c9f3fba21fd5ebc9ec5aa0aa/resource.tar.gz#test_sql2yql.test_runtime_features-runtime_feature_basic_/sql.yql"
+            "checksum": "d33d485ef67b8869f769a80a0f2dbb85",
+            "size": 1438,
+            "uri": "https://{canondata_backend}/1031349/8ec86e3a78bb50e71372726940a4541d30fdf922/resource.tar.gz#test_sql2yql.test_runtime_features-runtime_feature_basic_/sql.yql"
         }
     ],
     "test_sql2yql.test[select-autogen_columns_conflict]": [
