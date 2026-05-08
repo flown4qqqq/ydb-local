@@ -24,6 +24,7 @@ ydb/core/kqp/ut/scheme KqpScheme.CreateDropTableMultipleTime
 ydb/core/kqp/ut/scheme KqpScheme.StreamingQueriesOnServerless
 ydb/core/kqp/ut/tli KqpTli.BasicDataQuery
 ydb/core/kqp/ut/tli KqpTli.ManyUpsertsDeferredLock
+ydb/core/kqp/ut/tli KqpTli.MultipleKeys
 ydb/core/kqp/ut/tli KqpTli.SeparateCommitBreakerInMiddleOfSameShard
 ydb/core/kqp/ut/tli KqpTli.SeparateCommitDataQuery
 ydb/core/load_test/ut GroupWriteTest.SimpleRdma
