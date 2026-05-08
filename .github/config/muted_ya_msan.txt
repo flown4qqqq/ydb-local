@@ -31,6 +31,7 @@ ydb/core/blobstorage/ut_blobstorage/ut_restart_pdisk BSCRestartPDisk.RestartOneB
 ydb/core/blobstorage/ut_blobstorage/ut_restart_pdisk BSCRestartPDisk.RestartOneByOneWithReconnects
 ydb/core/blobstorage/ut_blobstorage/ut_restart_pdisk unittest.[*/*] chunk
 ydb/core/client/ut TObjectStorageListingTest.TombstoneRestarts
+ydb/core/health_check/ut THealthCheckTest.TestStateStorageBlue
 ydb/core/kqp/ut/arrow KqpResultSetFormats.ArrowFormat_LargeTable
 ydb/core/kqp/ut/arrow KqpResultSetFormats.ArrowFormat_LargeTable_Limit
 ydb/core/kqp/ut/arrow KqpResultSetFormats.ArrowFormat_SchemaInclusionMode_Always
