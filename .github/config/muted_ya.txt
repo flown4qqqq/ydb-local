@@ -57,6 +57,7 @@ ydb/core/tx/schemeshard/ut_split_merge_reboots TSchemeShardSplitTestReboots.Spli
 ydb/core/tx/schemeshard/ut_subdomain TSchemeShardSubDomainTest.SimultaneousCreateTenantTable
 ydb/core/tx/schemeshard/ut_vector_index_build_reboots unittest.[*/*] chunk
 ydb/core/viewer/tests test.py.TestViewer.test_storage_stats
+ydb/core/viewer/tests test.py.TestViewer.test_viewer_tenantinfo
 ydb/library/actors/core/ut TestThreadContextQueueTimestamps.CurrentQueueTimestamps
 ydb/services/ydb/backup_ut BackupPathTestFs.ParallelBackupWholeDatabase
 ydb/services/ydb/ut TRegisterNodeOverDiscoveryService.ServerWithCertVerification_ClientProvidesCorruptedCert
