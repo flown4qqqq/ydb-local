@@ -99,6 +99,7 @@ ydb/core/load_test/ut_ycsb ReadLoad.ShouldReadIterateMoreThanRows
 ydb/core/mind/hive/ut TScaleRecommenderTest.BasicTest
 ydb/core/security/ut TTicketParserTest.TicketParserPeerNameValidationWithFeatureFlagDisabled
 ydb/core/security/ut TTicketParserTest.TicketParserPeerNameValidationWithFeatureFlagEnabled
+ydb/core/transfer/ut/column_table unittest.sole chunk
 ydb/core/transfer/ut/functional Transfer.AlterBatchSize
 ydb/core/transfer/ut/functional Transfer.AlterFlushInterval
 ydb/core/transfer/ut/functional Transfer.AlterLambdaOnWork
