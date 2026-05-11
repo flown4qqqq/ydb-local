@@ -79,10 +79,23 @@ BELONGS ya.make
         png.h [5:8]
         png.h [35:39]
         pngconf.h [5:8]
+        pngdebug.h [3:6]
+        pngerror.c [3:6]
+        pngget.c [3:6]
+        pnginfo.h [3:6]
         pnglibconf.h [5:6]
+        pngmem.c [3:6]
+        pngpread.c [3:6]
+        pngpriv.h [3:6]
         pngread.c [3:6]
+        pngrio.c [3:6]
+        pngrtran.c [3:6]
+        pngrutil.c [3:6]
         pngset.c [3:6]
+        pngstruct.h [3:6]
+        pngwio.c [3:6]
         pngwrite.c [3:6]
+        pngwutil.c [3:6]
 
 KEEP     COPYRIGHT_SERVICE_LABEL 29987a3e22887759d4116a65229bc445
 BELONGS ya.make
@@ -144,11 +157,6 @@ BELONGS ya.make
         arm/filter_neon_intrinsics.c [3:6]
         intel/filter_sse2_intrinsics.c [3:6]
         intel/intel_init.c [3:6]
-        pngdebug.h [3:6]
-        pnginfo.h [3:6]
-        pngmem.c [3:6]
-        pngrio.c [3:6]
-        pngwio.c [3:6]
         pngwtran.c [3:6]
         powerpc/filter_vsx_intrinsics.c [3:5]
         powerpc/powerpc_init.c [3:5]
@@ -182,14 +190,16 @@ BELONGS ya.make
 
 KEEP     COPYRIGHT_SERVICE_LABEL 51b32ca44bdc2a734f625cee7a36472b
 BELONGS ya.make
-    Note: matched license text is too long. Read it in the source files.
+    License text:
+         * Copyright (c) 2018-2022 Cosmin Truta
+         * Copyright (c) 2014,2016 Glenn Randers-Pehrson
+         * Written by Mans Rullgard, 2011.
     Scancode info:
         Original SPDX id: COPYRIGHT_SERVICE_LABEL
         Score           : 100.00
         Match type      : COPYRIGHT
     Files with this license:
         arm/arm_init.c [3:5]
-        pngstruct.h [3:6]
 
 KEEP     COPYRIGHT_SERVICE_LABEL 5fc45730df09b1e4ad9f9d6a2d097232
 BELONGS ya.make
@@ -296,14 +306,7 @@ BELONGS ya.make
     Files with this license:
         mips/filter_msa_intrinsics.c [3:5]
         mips/mips_init.c [3:6]
-        pngerror.c [3:6]
-        pngget.c [3:6]
-        pngpread.c [3:6]
-        pngpriv.h [3:6]
-        pngrtran.c [3:6]
-        pngrutil.c [3:6]
         pngtrans.c [3:6]
-        pngwutil.c [3:6]
 
 KEEP     COPYRIGHT_SERVICE_LABEL a9fe2e1b3b86d7489fcd47a2c9749dfe
 BELONGS ya.make
