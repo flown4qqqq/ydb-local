@@ -5,7 +5,6 @@ ydb/core/blobstorage/ut_blobstorage/ut_balancing VDiskBalancing.TestRandom_Mirro
 ydb/core/blobstorage/ut_blobstorage/ut_balancing unittest.[*/*] chunk
 ydb/core/blobstorage/ut_blobstorage/ut_bridge BridgeGet.PartRestorationAcrossBridgeOnRange
 ydb/core/blobstorage/ut_blobstorage/ut_bridge unittest.[*/*] chunk
-ydb/core/blobstorage/ut_blobstorage/ut_ddisk DDisk.PersistentBufferEraseBarrier
 ydb/core/blobstorage/ut_blobstorage/ut_ddisk DDisk.PersistentBufferWithRestarts
 ydb/core/blobstorage/ut_blobstorage/ut_ddisk unittest.[*/*] chunk
 ydb/core/blobstorage/ut_blobstorage/ut_donor Donor.ManualCrossNodeReassignMustKeepDonorForbiddenOnRetry
@@ -30,7 +29,6 @@ ydb/core/blobstorage/ut_blobstorage/ut_read_only_pdisk unittest.[*/*] chunk
 ydb/core/blobstorage/ut_blobstorage/ut_restart_pdisk BSCRestartPDisk.RestartOneByOne
 ydb/core/blobstorage/ut_blobstorage/ut_restart_pdisk BSCRestartPDisk.RestartOneByOneWithReconnects
 ydb/core/blobstorage/ut_blobstorage/ut_restart_pdisk unittest.[*/*] chunk
-ydb/core/client/ut TObjectStorageListingTest.TombstoneRestarts
 ydb/core/health_check/ut THealthCheckTest.TestStateStorageBlue
 ydb/core/kqp/ut/arrow KqpResultSetFormats.ArrowFormat_LargeTable
 ydb/core/kqp/ut/arrow KqpResultSetFormats.ArrowFormat_LargeTable_Limit
@@ -45,7 +43,6 @@ ydb/core/kqp/ut/arrow KqpResultSetFormats.ValueFormat_SchemaInclusionMode_FirstO
 ydb/core/kqp/ut/arrow KqpResultSetFormats.ValueFormat_SchemaInclusionMode_FirstOnly_Multistatement
 ydb/core/kqp/ut/arrow KqpResultSetFormats.ValueFormat_SchemaInclusionMode_Unspecified
 ydb/core/kqp/ut/arrow KqpResultSetFormats.ValueFormat_SmallChannelBufferSize
-ydb/core/kqp/ut/batch_operations KqpBatchDelete.Large_3
 ydb/core/kqp/ut/batch_operations KqpBatchUpdate.Large_3
 ydb/core/kqp/ut/indexes/fulltext KqpFulltextIndexes.FullTextDeliveryProblem+LimitRowsPerRequest
 ydb/core/kqp/ut/indexes/fulltext KqpFulltextIndexes.FullTextReadResultStatusRetry+LimitRowsPerRequest
@@ -97,8 +94,6 @@ ydb/core/load_test/ut unittest.[*/*] chunk
 ydb/core/load_test/ut_ycsb ReadLoad.ShouldReadIterate
 ydb/core/load_test/ut_ycsb ReadLoad.ShouldReadIterateMoreThanRows
 ydb/core/mind/hive/ut TScaleRecommenderTest.BasicTest
-ydb/core/security/ut TTicketParserTest.TicketParserPeerNameValidationWithFeatureFlagDisabled
-ydb/core/security/ut TTicketParserTest.TicketParserPeerNameValidationWithFeatureFlagEnabled
 ydb/core/transfer/ut/column_table unittest.sole chunk
 ydb/core/transfer/ut/functional Transfer.AlterBatchSize
 ydb/core/transfer/ut/functional Transfer.AlterFlushInterval
@@ -155,7 +150,6 @@ ydb/public/sdk/cpp/tests/integration/bulk_upsert BulkUpsert.BulkUpsert
 ydb/tests/compatibility test_bloom_filter_index.py.TestBloomFilterIndex.test_bloom_filter_survives_version_change[restart_prestable-26-2_to_prestable-26-2]
 ydb/tests/compatibility test_bloom_filter_index.py.TestBloomFilterIndex.test_bloom_filter_survives_version_change[restart_stable-25-4-1_to_stable-26-1-1]
 ydb/tests/compatibility/federated_queries py3test.[test_external_data_source_secret.py */*] chunk
-ydb/tests/fq/http_api test_http_api.py.TestHttpApi.test_simple_analytics_query
 ydb/tests/fq/s3 test_statistics.py.TestS3.test_aborted_by_user[v2-client0]
 ydb/tests/fq/s3 test_ydb_over_fq.py.TestYdbOverFq.test_list_directory_v1[v1-client0]
 ydb/tests/fq/s3 test_ydb_over_fq.py.TestYdbOverFq.test_list_directory_v2[v2-client0]
