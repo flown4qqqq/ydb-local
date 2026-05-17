@@ -17,21 +17,21 @@ namespace NKikimr {
 namespace {
 
 void WaitForAuditLogLines(const std::vector<std::string>& lines,
-    size_t expectedLines, TDuration timeout = TDuration::MilliSeconds(1000))
+    size_t expectedLines, TDuration timeout = TDuration::MilliSeconds(500))
 {
     /*
-    Ideally, at this point we would wait until `lines.size()` becomes equal to `expectedLines`.
-
-    However, there is no good thread-safe approach here without either significantly
+    There is no good thread-safe approach here without either significantly
     rewriting the audit actor implementation to use a thread-safe vector,
     or changing the behavior of the audit subsystem itself
     (which is something we may indeed want to do in the future).
 
-    Therefore, we simply sleep here and
-    hope that all audit records are written to the vector during this time.
+    Therefore, this function is temporarily (hope) excluded from TSAN checks.
     */
 
-    Sleep(timeout);
+    auto deadline = TInstant::Now() + timeout;
+    while (lines.size() < expectedLines && TInstant::Now() < deadline) {
+        Sleep(TDuration::MilliSeconds(50));
+    }
     UNIT_ASSERT_C(lines.size() == expectedLines,
         "Audit log line did not appear within timeout. Expected: " << expectedLines << ", got: " << lines.size());
 }
